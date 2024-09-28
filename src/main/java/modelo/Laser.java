@@ -1,17 +1,26 @@
 package modelo;
 
 public class Laser {
-    private Coordenada posicionActual;
+    private int columna;
+    private int fila;
     private Direccion direccion;
 
-    public Laser(Coordenada posicion, Direccion direccion ) {
-        this.posicionActual = posicion;
+    public Laser(int columna, int fila, Direccion direccion) {
+        this.columna = columna;
+        this.fila = fila;
         this.direccion = direccion;
-
     }
 
-    public void apuntarLaser() {
-        return;
+    public int getColumna() {
+        return columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
     }
 
 

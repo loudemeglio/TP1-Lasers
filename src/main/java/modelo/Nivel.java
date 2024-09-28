@@ -1,21 +1,46 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Nivel {
     private Grilla grilla;
     private List<Laser> lasers;
     private List<Objetivo> objetivos;
+    private int numeroNivel;
 
-    public Nivel(Grilla grilla, List<Laser> lasers, List<Objetivo> objetivos) {
-        this.grilla = grilla;
-        this.lasers = lasers;
-        this.objetivos = objetivos;
+    public Nivel(int numeroNivel, int filas, int columnas) {
+        this.grilla = new Grilla(filas, columnas);
+        this.numeroNivel = numeroNivel;
+        this.lasers = new ArrayList<>();
+        this.objetivos = new ArrayList<>();
     }
 
-    private Bloque crearBloque(char simbolo) {
-        /* Metodo que crea un bloque dado el simbolo que recibe del archivo
-        * llamando a la los distintos tipos de bloques de la interfaz*/
-        return null;
+    public void setGrilla(Grilla grilla) {
+        this.grilla = grilla;
+    }
+
+    public Grilla getGrilla() {
+        return grilla;
+    }
+
+    public void agregarLaser(Laser emisor) {
+        lasers.add(emisor);
+    }
+
+    public void agregarObjetivo(Objetivo objetivo) {
+        objetivos.add(objetivo);
+    }
+
+    public List<Laser> getLasers() {
+        return lasers;
+    }
+
+    public List<Objetivo> getObjetivos() {
+        return objetivos;
+    }
+
+    public int getNumeroNivel() {
+        return numeroNivel;
     }
 }

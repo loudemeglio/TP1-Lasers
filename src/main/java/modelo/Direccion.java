@@ -1,5 +1,5 @@
 package modelo;
 
 public enum Direccion {
-    SE, SO, NE, NO;
+    SE, SW, NE, NW;
 }
