@@ -30,6 +30,30 @@ public class GrillaTest {
 
         assertEquals(12, grillaDuplicada.getFilas());
         assertEquals(8, grillaDuplicada.getColumnas());
+
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 1\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
+
     }
 
     @Test
@@ -42,6 +66,30 @@ public class GrillaTest {
 
         assertEquals(10, grillaDuplicada.getFilas());
         assertEquals(8, grillaDuplicada.getColumnas());
+
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 2\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
+
     }
 
     @Test
@@ -54,6 +102,28 @@ public class GrillaTest {
 
         assertEquals(6, grillaDuplicada.getFilas());
         assertEquals(6, grillaDuplicada.getColumnas());
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 3\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
     }
 
     @Test
@@ -66,6 +136,29 @@ public class GrillaTest {
 
         assertEquals(8, grillaDuplicada.getFilas());
         assertEquals(8, grillaDuplicada.getColumnas());
+        System.out.println(); // Salto de línea al final de cada fila
+
+        System.out.println("\u001B[31mEjecutando nivel: 4\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
     }
 
     @Test
@@ -78,6 +171,29 @@ public class GrillaTest {
 
         assertEquals(8, grillaDuplicada.getFilas());
         assertEquals(8, grillaDuplicada.getColumnas());
+        System.out.println(); // Salto de línea al final de cada fila
+
+        System.out.println("\u001B[31mEjecutando nivel: 5\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
     }
 
     @Test
@@ -90,6 +206,29 @@ public class GrillaTest {
 
         assertEquals(8, grillaDuplicada.getFilas());
         assertEquals(8, grillaDuplicada.getColumnas());
+        System.out.println(); // Salto de línea al final de cada fila
+
+        System.out.println("\u001B[31mEjecutando nivel: 6\u001B[0m");
+        for (int fila = 0; fila < grillaDuplicada.getFilas(); fila++) {
+            for (int col = 0; col < grillaDuplicada.getColumnas(); col++) {
+                Bloque bloque = grillaDuplicada.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+        System.out.println("Emisores:");
+        for (Laser emisor : nivel.getLasers()) {
+            System.out.println("Emisor en Columna: " + emisor.getColumna() + ", Fila: " + emisor.getFila() + ", Dirección: " + emisor.getDireccion());
+        }
+
+        System.out.println("Objetivos:");
+        for (Objetivo objetivo : nivel.getObjetivos()) {
+            System.out.println("Objetivo en Columna: " + objetivo.getCoordenada().getColumna() + ", Fila: " + objetivo.getCoordenada().getFila());
+        }
     }
 
     @Test

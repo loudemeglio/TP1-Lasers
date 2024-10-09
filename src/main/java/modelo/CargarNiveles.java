@@ -42,7 +42,7 @@ public class CargarNiveles {
             int columnasDuplicadas = maxColumnas * 2;
 
             Nivel nivel = new Nivel(numeroNivel, filasDuplicadas, columnasDuplicadas);
-            Grilla grilla = new Grilla(filasDuplicadas, columnasDuplicadas);
+            Grilla grilla = new Grilla(columnasDuplicadas, filasDuplicadas);
 
             for (int i = 0; i < filasDuplicadas; i++) {
                 for (int j = 0; j < columnasDuplicadas; j++) {
@@ -65,7 +65,7 @@ public class CargarNiveles {
                     int columna = Integer.parseInt(partes[1]);
                     int fila = Integer.parseInt(partes[2]);
                     Direccion direccion = Direccion.valueOf(partes[3]);
-                    nivel.agregarLaser(new Laser(columna, fila, direccion));
+                    nivel.agregarLaser(new Laser((double) columna, (double) fila, direccion, 0.1));
                 } else if (partes[0].equals("G")) { // Objetivo
                     int columna = Integer.parseInt(partes[1]);
                     int fila = Integer.parseInt(partes[2]);

@@ -10,7 +10,7 @@ public class Nivel {
     private int numeroNivel;
 
     public Nivel(int numeroNivel, int filas, int columnas) {
-        this.grilla = new Grilla(filas, columnas);
+        this.grilla = new Grilla(columnas, filas);
         this.numeroNivel = numeroNivel;
         this.lasers = new ArrayList<>();
         this.objetivos = new ArrayList<>();

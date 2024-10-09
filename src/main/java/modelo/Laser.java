@@ -1,21 +1,24 @@
 package modelo;
 
 public class Laser {
-    private int columna;
-    private int fila;
+    private double columna;
+    private double fila;
     private Direccion direccion;
+    private double paso;     // Tamaño del paso para avanzar el láser (pequeño, ej. 0.1)
 
-    public Laser(int columna, int fila, Direccion direccion) {
+
+    public Laser(double columna, double fila, Direccion direccion, double paso) {
         this.columna = columna;
         this.fila = fila;
         this.direccion = direccion;
+        this.paso = paso;  // Pequeño paso para movimiento continuo
     }
 
-    public int getColumna() {
+    public double getColumna() {
         return columna;
     }
 
-    public int getFila() {
+    public double getFila() {
         return fila;
     }
 
@@ -23,5 +26,8 @@ public class Laser {
         return direccion;
     }
 
+    public boolean estaFueraDeGrilla(Grilla grilla) {
+        return columna < 0 || fila < 0 || columna >= grilla.getColumnas() || fila >= grilla.getFilas();
+    }
 
 }

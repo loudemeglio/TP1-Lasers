@@ -5,7 +5,7 @@ public class Grilla {
     private int filas;
     private int columnas;
 
-    public Grilla(int filas, int columnas) {
+    public Grilla(int columnas, int filas) {
         this.filas = filas;
         this.columnas = columnas;
         matriz = new Celda[filas][columnas];
