@@ -37,6 +37,11 @@ public class Grilla {
         return matriz[0].length;
     }
 
+    public boolean estaDentroDeLimites(Coordenada coord) {
+        return coord.getFila() >= 0 && coord.getFila() < filas &&
+                coord.getColumna() >= 0 && coord.getColumna() < columnas;
+    }
+
 
 
 }

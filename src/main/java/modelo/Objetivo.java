@@ -12,10 +12,10 @@ public class Objetivo {
     }
 
     public int getColumna() {
-        return coordenada.getColumna();
+        return (int)coordenada.getColumna();
     }
 
     public int getFila() {
-        return coordenada.getFila();
+        return (int)coordenada.getFila();
     }
 }

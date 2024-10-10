@@ -1,21 +1,42 @@
 package modelo;
 
 public class Coordenada {
-    private int columna;
-    private int fila;
+    private double columna;
+    private double fila;
 
-    public Coordenada(int columna, int fila) {
+    public Coordenada(double columna, double fila) {
         this.columna = columna;
         this.fila = fila;
     }
 
-    public int getColumna() {
+    public double getColumna() {
         return columna;
     }
 
-    public int getFila() {
+    public double getFila() {
         return fila;
     }
+    public int getColumnaEntera() {
+        return (int) Math.floor(this.columna);
+    }
+
+    public int getFilaEntera() {
+        return (int) Math.floor(this.fila);
+    }
+
+    public void setColumna(double columna) {
+        this.columna = columna;
+    }
+
+    public void setFila(double fila) {
+        this.fila = fila;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordenada{" + "columna=" + columna + ", fila=" + fila + '}';
+    }
+
 }
 
 
