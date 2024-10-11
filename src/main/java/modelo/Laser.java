@@ -30,6 +30,11 @@ public class Laser {
         this.direccion = direccion;
     }
 
+    public void setCoordenada(double fila, double columna) {
+        this.fila = fila;
+        this.columna = columna;
+    }
+
     public boolean estaFueraDeGrilla(Grilla grilla) {
         return columna < 0 || fila < 0 || columna >= grilla.getColumnas() || fila >= grilla.getFilas();
     }
