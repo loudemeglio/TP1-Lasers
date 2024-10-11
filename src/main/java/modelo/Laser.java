@@ -5,7 +5,7 @@ public class Laser {
     private double fila;
     private Direccion direccion;
     private double paso;     // Tamaño del paso para avanzar el láser (pequeño, ej. 0.1)
-
+    private boolean activo = true;
 
     public Laser(double columna, double fila, Direccion direccion, double paso) {
         this.columna = columna;
@@ -84,4 +84,18 @@ public class Laser {
     public String obtenerPosicion() {
         return String.format("Posición del láser: (%.1f, %.1f)", columna, fila);
     }
+
+    public double redondear(double valor, int decimales) {
+        double factor = Math.pow(10, decimales);
+        return Math.round(valor * factor) / factor;
+    }
+
+    public boolean estaActivo() {
+        return activo;
+    }
+
+    public void detener() {
+        this.activo = false;
+    }
+
 }

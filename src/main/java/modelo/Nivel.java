@@ -24,18 +24,22 @@ public class Nivel {
         // MIENTRAS ESTE EN EL RANGO DE LA GRILLA LLAMA A LASER.MOVER, DEBERIA ACA TAMBIEN CHQUEAR LO DE OBJETIVOS
         while (grilla.estaDentroDeLimites(posicion)) {
             System.out.println("Posición actual del láser: " + posicion.getColumna() + "," + posicion.getFila());
-
             // Mover el láser
-            laser.mover();
-              posicion.setColumna(laser.getColumna());
-              posicion.setFila(laser.getFila());
             if (laser.verificarColision(grilla)) {
                 System.out.println("El láser ha interactuado con un bloque !!!!! )");
                 Bloque bloque = grilla.getCelda((int) posicion.getColumna(), (int) posicion.getFila()).getTipoBloque();
                 System.out.println("EL BLOQUE ES: " + bloque);
+
+                if (!laser.estaActivo()) {
+                    System.out.println("El láser ha sido absorbido. Deteniendo movimiento.");
+                    return;  // Salir del ciclo si el láser ha sido absorbido
+                }
             }
-//            posicion.setColumna(laser.getColumna());
-//            posicion.setFila(laser.getFila());
+            if (laser.estaActivo()) {
+                laser.mover();
+                posicion.setColumna(laser.getColumna());
+                posicion.setFila(laser.getFila());
+            }
             // laser.mover();
 
             // Actualizar la posición
@@ -43,6 +47,7 @@ public class Nivel {
             System.out.println("Láser se ha movido a: " + posicion.getColumna() + "," + posicion.getFila());
         }
     }
+
 
     public void setGrilla(Grilla grilla) {
         this.grilla = grilla;
@@ -71,4 +76,7 @@ public class Nivel {
     public int getNumeroNivel() {
         return numeroNivel;
     }
+
+
+
 }

@@ -65,7 +65,7 @@ public class CargarNiveles {
                     int columna = Integer.parseInt(partes[1]);
                     int fila = Integer.parseInt(partes[2]);
                     Direccion direccion = Direccion.valueOf(partes[3]);
-                    nivel.agregarLaser(new Laser((double) columna, (double) fila, direccion, 0.5));
+                    nivel.agregarLaser(new Laser((double) columna, (double) fila, direccion, 0.1));
                 } else if (partes[0].equals("G")) { // Objetivo
                     int columna = Integer.parseInt(partes[1]);
                     int fila = Integer.parseInt(partes[2]);
