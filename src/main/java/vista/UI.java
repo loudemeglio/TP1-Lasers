@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.util.List;
 
 public class UI extends Application {
