@@ -1,24 +1,26 @@
 package modelo;
 
-public class Laser {
-    private double columna;
-    private double fila;
-    private Direccion direccion;
-    private double paso;     // Tamaño del paso para avanzar el láser (pequeño, ej. 0.1)
-    private boolean activo = true;
+import java.util.List;
 
-    public Laser(double columna, double fila, Direccion direccion, double paso) {
+public class Laser {
+    private int columna;
+    private int fila;
+    private Direccion direccion;
+    private boolean activo = true;
+    private List<LaserTrayecto> trayectosLaser;
+
+
+    public Laser(int columna, int fila, Direccion direccion) {
         this.columna = columna;
         this.fila = fila;
         this.direccion = direccion;
-        this.paso = paso;  // Pequeño paso para movimiento continuo
     }
 
-    public double getColumna() {
+    public int getColumna() {
         return columna;
     }
 
-    public double getFila() {
+    public int getFila() {
         return fila;
     }
 
@@ -33,6 +35,9 @@ public class Laser {
     public boolean estaFueraDeGrilla(Grilla grilla) {
         return columna < 0 || fila < 0 || columna >= grilla.getColumnas() || fila >= grilla.getFilas();
     }
+    public List<LaserTrayecto> getTrayectoriaLaser() {
+        return trayectosLaser;
+    }
 
     // SE MUEVE DEPENDIENDO LA DIRECCION QUE TOMA EL LASER
     public void mover() {
@@ -40,20 +45,20 @@ public class Laser {
         System.out.println("Posición inicial del láser: (" + this.getColumna() + ", " + this.getFila() + ")");
         switch (this.direccion) {
             case SE:
-                this.columna += this.paso;
-                this.fila += this.paso;
+                this.columna += 1;
+                this.fila += 1;
                 break;
             case SW:
-                this.columna -= this.paso;
-                this.fila += this.paso;
+                this.columna -= 1;
+                this.fila += 1;
                 break;
             case NE:
-                this.columna += this.paso;
-                this.fila -= this.paso;
+                this.columna += 1;
+                this.fila -= 1;
                 break;
             case NW:
-                this.columna -= this.paso;
-                this.fila -= this.paso;
+                this.columna -= 1;
+                this.fila -= 1;
                 break;
             default:
                 throw new IllegalArgumentException("Dirección desconocida");
@@ -62,8 +67,8 @@ public class Laser {
 
     // Verificar colisión o interacción con una celda/bloque E INTERACTUA
     public boolean verificarColision(Grilla grilla) {
-        int columnaEntera = (int) Math.floor(this.columna);
-        int filaEntera = (int) Math.floor(this.fila);
+        int columnaEntera = this.columna;
+        int filaEntera = this.fila;
 
         // Si el láser está dentro de la grilla, verificar la celda
         if (!estaFueraDeGrilla(grilla)) {
@@ -82,12 +87,7 @@ public class Laser {
 
 
     public String obtenerPosicion() {
-        return String.format("Posición del láser: (%.1f, %.1f)", columna, fila);
-    }
-
-    public double redondear(double valor, int decimales) {
-        double factor = Math.pow(10, decimales);
-        return Math.round(valor * factor) / factor;
+        return String.format("Posición del láser: (%d, %d)", columna, fila);
     }
 
     public boolean estaActivo() {
@@ -96,6 +96,39 @@ public class Laser {
 
     public void detener() {
         this.activo = false;
+    }
+
+    public void moverColumnaPositiva() {
+        this.columna = (int) (this.columna + 1);  // Aumentar en 1 entero
+    }
+
+    public void moverColumnaNegativa() {
+        this.columna = (int) (this.columna - 1);  // Disminuir en 1 entero
+    }
+
+    public void moverFilaPositiva() {
+        this.fila = (int) (this.fila + 1);  // Aumentar en 1 entero
+    }
+
+    public void moverFilaNegativa() {
+        this.fila = (int) (this.fila - 1);  // Disminuir en 1 entero
+    }
+
+
+    public LadoImpacto verificarDireccionLaser(Coordenada coord) {
+        int fila = coord.getFila();
+        int columna = coord.getColumna();
+
+        // Si la fila es par e impar la columna, el láser viene de los costados (izquierda o derecha)
+        //TENDRIAMOS QUE HACER TAMBIEN CLASE CON ARRIBA, ABAJO, IZQ DERECHA?!?!
+        if (fila % 2 == 0 && columna % 2 != 0) {
+            return LadoImpacto.SUPERIOR_INFERIOR;
+        }
+        // Si la fila es impar y la columna es par, el láser viene de arriba o abajo
+        else if (fila % 2 != 0 && columna % 2 == 0) {
+            return LadoImpacto.LATERAL;
+        }
+        return null;
     }
 
 }

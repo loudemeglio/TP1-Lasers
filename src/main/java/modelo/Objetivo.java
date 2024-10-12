@@ -2,9 +2,11 @@ package modelo;
 
 public class Objetivo {
     private Coordenada coordenada;
+    private boolean alcanzado;
 
     public Objetivo(int columna, int fila) {
         this.coordenada = new Coordenada(columna, fila);
+        this.alcanzado = false;
     }
 
     public Coordenada getCoordenada() {
@@ -12,10 +14,18 @@ public class Objetivo {
     }
 
     public int getColumna() {
-        return (int)coordenada.getColumna();
+        return coordenada.getColumna();
     }
 
     public int getFila() {
-        return (int)coordenada.getFila();
+        return coordenada.getFila();
+    }
+
+    public boolean isAlcanzado() {
+        return alcanzado;
+    }
+
+    public void setAlcanzado(boolean alcanzado) {
+        this.alcanzado = alcanzado;
     }
 }

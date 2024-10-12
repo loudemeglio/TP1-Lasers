@@ -4,7 +4,7 @@ public class Grilla {
     private Celda[][] matriz;
     private int filas;
     private int columnas;
-
+    private int cont = 0;
     public Grilla(int columnas, int filas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -38,6 +38,10 @@ public class Grilla {
     }
 
     public boolean estaDentroDeLimites(Coordenada coord) {
+        if (cont == 0) {
+            cont = 1;
+            return true;
+        }
         return coord.getFila() >= 0 && coord.getFila() < filas &&
                 coord.getColumna() >= 0 && coord.getColumna() < columnas;
     }

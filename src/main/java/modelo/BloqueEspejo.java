@@ -6,32 +6,14 @@ public class BloqueEspejo implements Bloque {
     @Override
     public void interactuarConLaser(Laser laser) {
         Direccion direccionActual = laser.getDireccion();
-        int columna = (int)laser.getColumna(); // Suponiendo que tienes un método para obtener la columna
+        System.out.println("direccion iniciallll : " + laser.getDireccion());
+        LadoImpacto ladoImpacto = determinarLadoImpacto(laser);
 
-        // Si la columna es par, reflejar en una dirección específica
-        if (direccionActual != null) {
-            switch (direccionActual) {
-                case SE:
-                    laser.setDireccion(NE); // Cambiar la dirección del láser
-                    break;
-                case SW:
-                    laser.setDireccion(NW);
-                    break;
-                case NE:
-                    laser.setDireccion(SE);
-                    break;
-                case NW:
-                    laser.setDireccion(SW);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Dirección desconocida para reflejar en superior/inferior");
-            }
-        } else {
-            // Si no es una columna par, puedes definir otro comportamiento o lanzar una excepción
-            throw new IllegalArgumentException("Lado de impacto desconocido");
-        }
+        Direccion nuevaDireccion =  cambiarDireccion(direccionActual, ladoImpacto);
+        laser.setDireccion(nuevaDireccion);
+        System.out.println("NUEVA REDIRECCION: " + nuevaDireccion);
 
-        System.out.println("El laser ha sido reflejado.");
+        System.out.println("El laser ha sido reflejado a. "+ laser.getDireccion());
 
     }
 
@@ -42,5 +24,56 @@ public class BloqueEspejo implements Bloque {
     @Override
     public boolean esMovil() {
         return true;
+    }
+
+    public LadoImpacto determinarLadoImpacto(Laser laser) {
+        int fila = laser.getFila();
+        int col = laser.getColumna();
+        System.out.println("LA COLUMNA ES " + col + " y la FILAAAAAAAAA ESSSSSSSSS "+ fila );
+
+        // Verificar si la fila es impar y la columna es par (impacto lateral)
+        if (fila % 2 != 0 && col % 2 == 0) {
+            return LadoImpacto.LATERAL;
+        }
+        // Verificar si la fila es par y la columna es impar (impacto superior/inferior)
+        else if ( col % 2 != 0) {
+            return LadoImpacto.SUPERIOR_INFERIOR;
+        }
+        return null; // O lanzar una excepción si no cumple con ninguna de las condiciones
+    }
+
+    public Direccion cambiarDireccion(Direccion direccion, LadoImpacto ladoImpacto) {
+        switch (ladoImpacto) {
+            case LATERAL:
+                // Si el láser viene de izquierda o derecha, lo rediriges verticalmente
+                switch (direccion) {
+                    case SE:
+                        return Direccion.SW;
+                    case SW:
+                        return Direccion.SE;
+                    case NE:
+                        return Direccion.NW;
+                    case NW:
+                        return Direccion.NE;
+                    default:
+                        throw new IllegalArgumentException("Dirección desconocida para reflejar en lateral");
+                }
+            case SUPERIOR_INFERIOR:
+                // Si el láser viene de arriba o abajo, lo rediriges horizontalmente
+                switch (direccion) {
+                    case SE:
+                        return Direccion.NE;
+                    case SW:
+                        return Direccion.NW;
+                    case NE:
+                        return Direccion.SE;
+                    case NW:
+                        return Direccion.SW;
+                    default:
+                        throw new IllegalArgumentException("Dirección desconocida para reflejar en superior/inferior");
+                }
+            default:
+                throw new IllegalArgumentException("Lado de impacto desconocido");
+        }
     }
 }

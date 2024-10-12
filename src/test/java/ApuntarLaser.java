@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -49,10 +50,54 @@ public class ApuntarLaser {
         // Obtener la posición después del movimiento
         String posicion = laser.obtenerPosicion();
 
+        List<LaserTrayecto> trayectos = nivel.getTrayectosLaser();
+        System.out.println("Trayectoria del láser:");
+        for (LaserTrayecto trayecto : trayectos) {
+            System.out.println("Desde (" + trayecto.getInicio().getColumna() + ", " + trayecto.getInicio().getFila() +
+                    ") hasta (" + trayecto.getFin().getColumna() + ", " + trayecto.getFin().getFila() + ")");
+        }
+
         // Verificar que la posición sea la esperada
         String expected = "Posición del láser: (8,0, 9,0)";
         String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
         Direccion d = Direccion.NE;
+        Direccion act = laser.getDireccion();
+        System.out.println("Posición actual: " + actual); // Debugging
+        assertEquals(d, act);
+    }
+
+    @Test
+    public void testApuntarLaser2() {
+        // Cargar el nivel
+        Nivel nivel = CargarNiveles.cargarNivelDeArchivo(2);
+        Grilla grilla = nivel.getGrilla();
+        Laser laser = nivel.getLasers().get(0); // Obtener el láser desde el nivel
+
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 2\u001B[0m");
+        for (int fila = 0; fila < grilla.getFilas(); fila++) {
+            for (int col = 0; col < grilla.getColumnas(); col++) {
+                Bloque bloque = grilla.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+
+        // Mover el láser
+        nivel.apuntarLaser(laser); // Mover el láser una vez
+
+        // Obtener la posición después del movimiento
+        String posicion = laser.obtenerPosicion();
+
+        // Verificar que la posición sea la esperada
+        String expected = "Posición del láser: (8,0, 9,0)";
+        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
+
+        Direccion d = Direccion.SE;
         Direccion act = laser.getDireccion();
         System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
@@ -162,6 +207,42 @@ public class ApuntarLaser {
         String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
 
         Direccion d = Direccion.SW;
+        Direccion act = laser.getDireccion();
+        System.out.println("Posición actual: " + actual); // Debugging
+        assertEquals(d, act);
+    }
+
+    @Test
+    public void testApuntarLaser6() {
+        // Cargar el nivel
+        Nivel nivel = CargarNiveles.cargarNivelDeArchivo(6);
+        Grilla grilla = nivel.getGrilla();
+        Laser laser = nivel.getLasers().get(0); // Obtener el láser desde el nivel
+
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 6\u001B[0m");
+        for (int fila = 0; fila < grilla.getFilas(); fila++) {
+            for (int col = 0; col < grilla.getColumnas(); col++) {
+                Bloque bloque = grilla.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+
+        // Mover el láser
+        nivel.apuntarLaser(laser); // Mover el láser una vez
+
+        // Obtener la posición después del movimiento
+        String posicion = laser.obtenerPosicion();
+
+        // Verificar que la posición sea la esperada
+        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
+
+        Direccion d = Direccion.SE;
         Direccion act = laser.getDireccion();
         System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
