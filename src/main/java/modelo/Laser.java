@@ -5,12 +5,16 @@ import java.util.List;
 public class Laser {
     private int columna;
     private int fila;
+    private int colInicial;
+    private int filInicial;
     private Direccion direccion;
     private boolean activo = true;
     private List<LaserTrayecto> trayectosLaser;
 
 
     public Laser(int columna, int fila, Direccion direccion) {
+        this.colInicial = columna;
+        this.filInicial = fila;
         this.columna = columna;
         this.fila = fila;
         this.direccion = direccion;
@@ -31,6 +35,10 @@ public class Laser {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+    public int getColInicial() { return colInicial;}
+
+    public int getFilInicial() { return filInicial;}
 
     public boolean estaFueraDeGrilla(Grilla grilla) {
         return columna < 0 || fila < 0 || columna >= grilla.getColumnas() || fila >= grilla.getFilas();

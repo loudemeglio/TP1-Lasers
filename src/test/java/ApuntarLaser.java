@@ -248,4 +248,40 @@ public class ApuntarLaser {
         assertEquals(d, act);
     }
 
+    /*@Test
+    public void testApuntarLaseraux() {
+        // Cargar el nivel
+        Nivel nivel = CargarNiveles.cargarNivelDeArchivo(7);
+        Grilla grilla = nivel.getGrilla();
+        Laser laser = nivel.getLasers().get(0); // Obtener el láser desde el nivel
+
+        System.out.println(); // Salto de línea al final de cada fila
+        System.out.println("\u001B[31mEjecutando nivel: 7\u001B[0m");
+        for (int fila = 0; fila < grilla.getFilas(); fila++) {
+            for (int col = 0; col < grilla.getColumnas(); col++) {
+                Bloque bloque = grilla.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+
+        // Mover el láser
+        nivel.apuntarLaser(laser); // Mover el láser una vez
+
+        // Obtener la posición después del movimiento
+        String posicion = laser.obtenerPosicion();
+
+        // Verificar que la posición sea la esperada
+        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
+
+        Direccion d = Direccion.SW;
+        Direccion act = laser.getDireccion();
+        System.out.println("Posición actual: " + actual); // Debugging
+        assertEquals(d, act);
+    }*/
+
 }

@@ -35,6 +35,8 @@ public class Nivel {
 
         while (grilla.estaDentroDeLimites(posicion) && !verificarNivelCompletado()) {
             System.out.println("Posición actual del láser: " + posicion.getColumna() + "," + posicion.getFila());
+
+
             if (posicionEnRango && !grilla.estaDentroDeLimites(posicion)) {
                 laser.mover();
                 posicion = new Coordenada(laser.getColumna(), laser.getFila());
@@ -79,6 +81,7 @@ public class Nivel {
                 break;
             }
 
+
             laser.mover();
             posicion = new Coordenada(laser.getColumna(), laser.getFila());
             System.out.println("Moviendo a: " + posicion.getColumna() + "," + posicion.getFila());
@@ -113,7 +116,9 @@ public class Nivel {
     private void interactuarBloqueLateral(Coordenada coord, Laser laser) {
         Coordenada adyacenteIzq = new Coordenada(coord.getColumna() - 1, coord.getFila());
         Coordenada adyacenteDer = new Coordenada(coord.getColumna() + 1, coord.getFila());
-
+        if (!grilla.estaDentroDeLimites(adyacenteIzq) || !grilla.estaDentroDeLimites(adyacenteDer)) {
+            return;
+        }
         if (interactuarBloqueAdyacente(adyacenteIzq, laser) || interactuarBloqueAdyacente(adyacenteDer, laser)) {
             return;
         }
@@ -122,6 +127,9 @@ public class Nivel {
     private void interactuarBloqueSuperiorInferior(Coordenada coord, Laser laser) {
         Coordenada adyacenteArriba = new Coordenada(coord.getColumna(), coord.getFila() - 1);
         Coordenada adyacenteAbajo = new Coordenada(coord.getColumna(), coord.getFila() + 1);
+        if (!grilla.estaDentroDeLimites(adyacenteAbajo) || !grilla.estaDentroDeLimites(adyacenteArriba)) {
+            return;
+        }
 
         if (interactuarBloqueAdyacente(adyacenteArriba, laser) || interactuarBloqueAdyacente(adyacenteAbajo, laser)) {
             return;
@@ -207,4 +215,10 @@ public class Nivel {
         return true; // Todos los objetivos han sido alcanzados
     }
 
+    public void ejecutarNiveles(Nivel nivel) {
+        System.out.println("\u001B[31mEjecutando nivel: " + numeroNivel + "\u001B[0m");
+        for (Laser laser : lasers) {
+            apuntarLaser(laser); // Apunta el laser para cada emisor
+        }
+    }
 }
