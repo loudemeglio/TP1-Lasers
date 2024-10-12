@@ -218,6 +218,8 @@ public class ApuntarLaser {
         Nivel nivel = CargarNiveles.cargarNivelDeArchivo(6);
         Grilla grilla = nivel.getGrilla();
         Laser laser = nivel.getLasers().get(0); // Obtener el láser desde el nivel
+        Laser laser2 = nivel.getLasers().get(1); // Obtener el láser desde el nivel
+
 
         System.out.println(); // Salto de línea al final de cada fila
         System.out.println("\u001B[31mEjecutando nivel: 6\u001B[0m");
@@ -235,6 +237,7 @@ public class ApuntarLaser {
 
         // Mover el láser
         nivel.apuntarLaser(laser); // Mover el láser una vez
+        nivel.apuntarLaser(laser2);
 
         // Obtener la posición después del movimiento
         String posicion = laser.obtenerPosicion();
