@@ -46,7 +46,10 @@ public class Nivel {
                 Bloque bloque = celda.getTipoBloque();
                 System.out.println("el bloque en esta celda: " + bloque);
                 if (bloque instanceof Piso) {
+
                     if (!trayectosLaser.isEmpty()) {
+                        manejarBloquePiso(laser, posicion);
+                    } else if (posicion != posInicial ) {
                         manejarBloquePiso(laser, posicion);
                     } else {
                         LaserTrayecto trayecto = new LaserTrayecto(inicio, inicio);
