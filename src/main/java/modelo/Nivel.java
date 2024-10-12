@@ -32,17 +32,13 @@ public class Nivel {
         Boolean primerMovimiento = false;
         System.out.println("Apuntando láser desde: " + inicio.getColumna() + "," + inicio.getFila());
 
+        // Realizar un primer movimiento antes de cualquier interacción
+        laser.mover();
+        posicion = new Coordenada(laser.getColumna(), laser.getFila());
 
         while (grilla.estaDentroDeLimites(posicion) && !verificarNivelCompletado()) {
             System.out.println("Posición actual del láser: " + posicion.getColumna() + "," + posicion.getFila());
 
-
-            if (posicionEnRango && !grilla.estaDentroDeLimites(posicion)) {
-                laser.mover();
-                posicion = new Coordenada(laser.getColumna(), laser.getFila());
-                posicionEnRango = false;
-
-            }
             Celda celda = grilla.getCelda(posicion.getFila(), posicion.getColumna());
             verificarObjetivoAlcanzado(posicion);
 
@@ -52,11 +48,11 @@ public class Nivel {
                 if (bloque instanceof Piso) {
                     if (!trayectosLaser.isEmpty()) {
                         manejarBloquePiso(laser, posicion);
-                    } else  {
+                    } else {
                         LaserTrayecto trayecto = new LaserTrayecto(inicio, inicio);
                         trayectosLaser.add(trayecto);
-
                     }
+
                     if (hayInteraccion) {
                         fin = new Coordenada(posicion.getColumna(), posicion.getFila());
                         LaserTrayecto trayecto = new LaserTrayecto(inicio, fin);
@@ -65,7 +61,6 @@ public class Nivel {
                         inicio = ultimoTrayecto.getFin(); // Usar la posición final del último trayecto
                         posicion = new Coordenada(inicio.getColumna(), inicio.getFila());
                     }
-
                 } else {
                     laser.verificarColision(grilla);
                     fin = new Coordenada(posicion.getColumna(), posicion.getFila());
@@ -76,20 +71,22 @@ public class Nivel {
                     posicion = new Coordenada(inicio.getColumna(), inicio.getFila());
                 }
             }
+
             if (!laser.estaActivo()) {
                 System.out.println("El laser ha impactado con un bloque opaco");
                 break;
             }
 
-
+            // Mover el láser después de verificar la celda
             laser.mover();
             posicion = new Coordenada(laser.getColumna(), laser.getFila());
             System.out.println("Moviendo a: " + posicion.getColumna() + "," + posicion.getFila());
-
         }
+
         fin = new Coordenada(laser.getColumna(), laser.getFila());
         finalizarLaser(fin, inicio, posicion);
     }
+
 
     private void verificarObjetivoAlcanzado(Coordenada coord) {
         for (Objetivo objetivo : objetivos) {
