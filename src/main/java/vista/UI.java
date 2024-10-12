@@ -107,7 +107,7 @@ public class UI extends Application {
                 if (bloque == null) {
                     rectangulo.setFill(Color.WHITE); // Piso vacío
                 } else if (bloque instanceof BloqueEspejo) {
-                    rectangulo.setFill(Color.SKYBLUE); // Bloque Espejo
+                    rectangulo.setFill(Color.CADETBLUE); // Bloque Espejo
                 } else if (bloque instanceof BloqueOpacoFijo) {
                     rectangulo.setFill(Color.BLACK); // Bloque Opaco Fijo
                 } else if (bloque instanceof BloqueOpacoMovil) {
@@ -145,7 +145,19 @@ public class UI extends Application {
 
                 // Agregar objetivos a la cuadrícula
                 for (Objetivo objetivo : objetivos) {
-                    Circle circuloObjetivo = new Circle(5, Color.ORANGE); // Círculo para el objetivo (radio 10)
+                    Circle circuloObjetivo = new Circle(5); // Círculo para el objetivo (radio 5)
+
+                    if (objetivo.isAlcanzado()) {
+                        // Si el objetivo fue alcanzado, rellenar el círculo
+                        circuloObjetivo.setFill(Color.RED);
+                    } else {
+                        // Si el objetivo no fue alcanzado, solo dibujar la circunferencia
+                        circuloObjetivo.setFill(Color.WHITE); // Sin relleno
+                        circuloObjetivo.setStroke(Color.RED);    // Solo la circunferencia
+                        circuloObjetivo.setStrokeWidth(2);          // Ancho de la circunferencia
+                    }
+
+                    // Agregar el círculo del objetivo a la cuadrícula
                     grid.add(circuloObjetivo, objetivo.getColumna(), objetivo.getFila());
                     circuloObjetivo.setTranslateY(-5);
                     circuloObjetivo.setTranslateX(-5);
