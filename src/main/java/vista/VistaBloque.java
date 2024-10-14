@@ -1,5 +1,6 @@
 package vista;
 
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import modelo.*;
@@ -27,6 +28,8 @@ public class VistaBloque {
         } else {
             rectangulo.setFill(Color.WHITE); // Caso por defecto para bloques desconocidos
         }
+
+        // Agregar evento de clic para manejar la selección del bloque
 
 
         return rectangulo;

@@ -27,13 +27,11 @@ public class UI extends Application {
     private GridPane grid;
     private Pane laserLayer;
     private ArrayList<Rectangle> rectangulos;
-
-
     private Rectangle draggedRectangle; // Para almacenar el rectángulo que se está arrastrando
-    private int draggedColumn; // Para almacenar la columna de origen
-    private int draggedRow; // Para almacenar la fila de origen
-    private int finalColum;
-    private int finalRow;
+
+    private Coordenada bloqueOrigen;
+    private Coordenada bloqueDestino;
+    private boolean origenSeleccionado = false;
 
 
     @Override
@@ -104,104 +102,96 @@ public class UI extends Application {
         dibujarTrayectosLaser(trayectosLaser);
     }
 
+    private List<Bloque> obtenerBloquesDesdeGrilla(Grilla grilla) {
+        List<Bloque> bloques = new ArrayList<>();
+
+        // Recorre la grilla completa
+        for (int fila = 0; fila < grilla.getFilas(); fila +=2) {
+            for (int col = 0; col < grilla.getColumnas(); col += 2) {
+                // Obtener la celda en la posición (fila, col)
+                Celda celda = grilla.getCelda(fila, col);
+
+                // Si la celda es null, se agrega un bloque nulo
+                Bloque bloque = (celda != null) ? celda.getTipoBloque() : null;
+
+                // Agregar el bloque (o null) a la lista
+                bloques.add(bloque);
+
+            }
+        }
+
+        return bloques;
+    }
+
+
+
     // Configurar la grilla con las celdas
     private void configurarGrilla(Grilla grilla) {
-        for (int fila = 0; fila < grilla.getFilas(); fila += 2) {
-            for (int col = 0; col < grilla.getColumnas(); col += 2) {
-                Celda celda = grilla.getCelda(fila, col);
-                Bloque bloque = celda != null ? celda.getTipoBloque() : null;
+        List<Bloque> bloquesTipos = obtenerBloquesDesdeGrilla(grilla);
+        int cont = 0;
+        for (int fila = 0; fila < grilla.getFilasOriginales(); fila++) {
+            for (int col = 0; col < grilla.getColOriginales(); col++) {
+                Celda celda = grilla.getCelda(fila, col); // Cambié fila * 2 por fila
+                Bloque bloque = bloquesTipos.get(cont);
+                cont++;
 
                 Rectangle rectangulo;
                 if (bloque != null) {
-                    final int column = col; // Captura la columna
-                    final int row = fila;
                     rectangulo = VistaBloque.crearRepresentacion(bloque);
-
                 } else {
                     rectangulo = new Rectangle(50, 50, Color.WHITE);
                     rectangulo.setStroke(Color.BLACK);
                     rectangulo.setStrokeWidth(1);
                 }
 
-                grid.add(rectangulo, col, fila, 2, 2);
-                rectangulos.add(rectangulo);
+                // Solo añade el rectángulo si no está ya presente
+                if (!rectangulos.contains(rectangulo)) {
+                    grid.add(rectangulo, col, fila); // Cambié a solo col y fila
+                    rectangulos.add(rectangulo);
+                }
             }
         }
-        System.out.println("LA lista de rectangulos tiene : " + rectangulos.size());
+        System.out.println("LA lista de rectangulos tiene: " + rectangulos.size());
 
-        grid.setOnMouseDragged(event -> {
-            if (draggedRectangle != null) {
-                draggedRectangle.setX(event.getSceneX() - draggedRectangle.getWidth() / 2);
-                draggedRectangle.setY(event.getSceneY() - draggedRectangle.getHeight() / 2);
-                System.out.println("Se ajustan las coordenadas para que el rectángulo se mueva correctamente, centrado en el cursor del mouse.");
-            }
-        });
+        List<Bloque> b = obtenerBloquesDesdeGrilla(grilla);
+        for (Bloque bl : b) {
+            System.out.println("TIPO : " + bl);
+        }
 
-        grid.setOnMouseReleased(event -> {
-            if (draggedRectangle != null) {
-                int mouseX = (int) event.getX();
-                int mouseY = (int) event.getY();
-                int targetColumn = ((mouseX / 50) / 2)*2;
-                int targetRow = ((mouseY / 50) / 2)*2;
+        for (Rectangle r : rectangulos) {
+            r.setOnMouseClicked(event -> {
+                Integer posX = GridPane.getColumnIndex(r);  // Obtener columna
+                Integer posY = GridPane.getRowIndex(r);     // Obtener fila
 
-                if (targetColumn >= 0 && targetColumn < grilla.getColumnas() && targetRow >= 0 && targetRow < grilla.getFilas()) {
-                    // Remover el rectángulo de la posición anterior
-                    grid.getChildren().remove(draggedRectangle);
-
-                    // Añadir el rectángulo a la nueva posición con colspan y rowspan de 2
-                    grid.add(draggedRectangle, targetColumn, targetRow, 2, 2);
-
-                    // Actualizar la lógica del juego
-                    juego.moverBloque(new Coordenada(draggedRow, draggedColumn), new Coordenada(targetRow, targetColumn));
-
-                    // Reconstruir la grilla para reflejar cambios
-                    construirGrilla();
+                if (posX == null || posY == null) {
+                    // En caso de que las coordenadas no estén asignadas
+                    System.out.println("No se pudieron obtener las coordenadas de la celda");
+                    return;
                 }
 
-                draggedRectangle = null;
-            }
-        });
-    }
-    private void agregarEventosDragAndDrop(Rectangle rectangulo, Grilla grilla, int filaInicial, int colInicial, Bloque bloque) {
+                if (!origenSeleccionado) {
+                    // Selecciona el origen
+                    bloqueOrigen = new Coordenada(posX, posY);
+                    origenSeleccionado = true;
+                    System.out.println("Celda origen seleccionada: " + bloqueOrigen);
+                } else {
+                    // Selecciona el destino
+                    bloqueDestino = new Coordenada(posX, posY);
+                    origenSeleccionado = false; // Resetea para la siguiente interacción
 
-        rectangulo.setOnMousePressed(mouseEvent -> {
-            draggedRectangle = rectangulo;
-            draggedColumn = colInicial;
-            draggedRow = filaInicial;
-        });
-        rectangulo.setOnDragDetected(mouseEvent -> {
-            draggedRectangle = rectangulo;
-            draggedColumn = colInicial;
-            draggedRow = filaInicial;
-            System.out.println("HICE CLICK Y ARRASTRO");
-            mouseEvent.consume();
-        });
+                    System.out.println("Celda destino seleccionada: " + bloqueDestino);
 
-        rectangulo.setOnDragOver(dragEvent -> {
-            if (dragEvent.getGestureSource() != rectangulo && dragEvent.getDragboard().hasString()) {
-                dragEvent.acceptTransferModes(TransferMode.MOVE);
-            }
-            dragEvent.consume();
-            System.out.println("pasa por encima de otro nodo ");
-        });
+                    // Lógica para mover el bloque de origen a destino
+                    if (juego.moverBloque(bloqueOrigen, bloqueDestino)) {
+                        System.out.println("Movimiento realizado de " + bloqueOrigen + " a " + bloqueDestino);
+                        construirGrilla(); // Actualiza la grilla después de mover
+                    } else {
+                        System.out.println("Movimiento inválido");
+                    }
+                }
+            });
+        }
 
-        rectangulo.setOnDragDropped(dragEvent -> {
-            Dragboard db = dragEvent.getDragboard();
-            boolean success = false;
-
-            if (db.hasString()) {
-                // Mover el bloque a la nueva posición
-                grid.getChildren().remove(draggedRectangle); // Eliminar el rectángulo arrastrado
-                grid.add(draggedRectangle, colInicial, filaInicial); // Colocar el rectángulo arrastrado en la nueva celda
-                success = true;
-            }
-
-
-            // Marcar el evento como consumido
-            dragEvent.setDropCompleted(success);
-            System.out.println("el usuario suelta el objeto arrastrado.");
-            dragEvent.consume();
-        });
     }
 
 
@@ -261,4 +251,6 @@ public class UI extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

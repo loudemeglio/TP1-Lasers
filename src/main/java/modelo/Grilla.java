@@ -20,6 +20,13 @@ public class Grilla {
         }
     }
 
+    public int getFilasOriginales() {
+        return filas/2;
+    }
+    public int getColOriginales() {
+        return columnas/2;
+    }
+
     public void setCelda(int fila, int columna, Bloque bloque) {
         matriz[fila][columna].setTipoBloque(bloque);
     }
