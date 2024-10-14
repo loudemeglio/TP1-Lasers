@@ -1,5 +1,8 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grilla {
     private Celda[][] matriz;
     private int filas;
@@ -46,24 +49,82 @@ public class Grilla {
                 coord.getColumna() >= 0 && coord.getColumna() < columnas;
     }
 
-    public boolean moverBloque(Coordenada origen, Coordenada destino) {
-        if (esPosicionValida(origen) && esPosicionValida(destino)) {
-            Celda celdaOrigen = getCelda(origen.getFila(), origen.getColumna());
-            Celda celdaDestino = getCelda(destino.getFila(), destino.getColumna());
+    public boolean moverBloque(Nivel n, Coordenada origen, Coordenada destino) {
+        List<Bloque> bloquesOrigen= new ArrayList<>();
+        List<Bloque> bloquesDestino= new ArrayList<>();
 
-            if (celdaOrigen.tieneBloque() && celdaDestino.getTipoBloque() instanceof Piso){
-                if (!celdaOrigen.getTipoBloque().esMovil()) {
+        if (esPosicionValida(origen) && esPosicionValida(destino)) {
+            Celda origen00 = getCelda(2*origen.getFila(), 2*origen.getColumna());
+            bloquesOrigen.add(origen00.getTipoBloque());
+            Celda destino00 = getCelda(2*destino.getFila(), 2*destino.getColumna());
+            bloquesDestino.add(destino00.getTipoBloque());
+
+            Celda origen10 = getCelda(2*origen.getFila(), (2*origen.getColumna()) + 1);
+            bloquesOrigen.add(origen10.getTipoBloque());
+            Celda destino10 = getCelda(2*destino.getFila(), (2*destino.getColumna()) + 1);
+            bloquesDestino.add(destino10.getTipoBloque());
+
+            Celda origen01 = getCelda((2*origen.getFila()) + 1, 2*origen.getColumna());
+            bloquesOrigen.add(origen01.getTipoBloque());
+            Celda destino01 = getCelda((2*destino.getFila()) + 1, 2*destino.getColumna());
+            bloquesDestino.add(destino01.getTipoBloque());
+
+            Celda origen11 = getCelda((2*origen.getFila()) + 1, (2*origen.getColumna()) + 1);
+            bloquesOrigen.add(origen11.getTipoBloque());
+            Celda destino11 = getCelda((2*destino.getFila()) + 1, (2*destino.getColumna()) + 1);
+            bloquesDestino.add(destino11.getTipoBloque());
+
+            for (Bloque b : bloquesOrigen) {
+                if (b == null || b instanceof Piso || !b.esMovil()) {
                     return false;
                 }
-                Bloque bloquePiso = celdaDestino.getTipoBloque();
-                Bloque bloque = celdaOrigen.getTipoBloque();
-                celdaOrigen.setTipoBloque(bloquePiso);
-                celdaDestino.setTipoBloque(bloque);
-                return true;
             }
+            for (Bloque b : bloquesDestino) {
+                if (b == null || !(b instanceof Piso)) {
+                    return false;
+                }
+            }
+            //mover
+            Bloque bloque00 = origen00.getTipoBloque();
+            origen00.setTipoBloque(new Piso());
+            destino00.setTipoBloque(bloque00);
+
+            Bloque bloque01 = origen01.getTipoBloque();
+            origen01.setTipoBloque(new Piso());
+            destino01.setTipoBloque(bloque01);
+
+            Bloque bloque10 = origen10.getTipoBloque();
+            origen10.setTipoBloque(new Piso());
+            destino10.setTipoBloque(bloque10);
+
+            Bloque bloque11 = origen11.getTipoBloque();
+            origen11.setTipoBloque(new Piso());
+            destino11.setTipoBloque(bloque11);
+
+            reiniciarLaser(n);
+            return true;
         }
-        return false;
+        return false; // Movimiento fallido
     }
+
+
+    private void reiniciarLaser(Nivel nivel) {
+        for (Laser l : nivel.getLasers()) {
+            nivel.getTrayectosLaser().clear();
+            if (nivel.getTrayectosLaser().isEmpty()) {
+                System.out.println("La trayectoria esta vacia");
+
+            }
+            int filInicial = l.getFilInicial();
+            int colInicial = l.getColInicial();
+            Direccion dirOriginal = l.getDirOriginal();
+            l.setColumna(colInicial);
+            l.setFila(filInicial);
+            l.setDireccion(dirOriginal);
+            nivel.apuntarLaser(l);
+        }
+    }
+
 
     private boolean esPosicionValida(Coordenada coordenada) {
         int fila = coordenada.getFila();

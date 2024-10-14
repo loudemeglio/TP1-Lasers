@@ -8,6 +8,7 @@ public class Laser {
     private int colInicial;
     private int filInicial;
     private Direccion direccion;
+    private Direccion direccionOriginal;
     private boolean activo = true;
     private List<LaserTrayecto> trayectosLaser;
 
@@ -18,6 +19,7 @@ public class Laser {
         this.columna = columna;
         this.fila = fila;
         this.direccion = direccion;
+        this.direccionOriginal = direccion;
     }
 
     public int getColumna() {
@@ -139,4 +141,15 @@ public class Laser {
         return null;
     }
 
+    public Direccion getDirOriginal() {
+        return direccionOriginal;
+    }
+
+    public void setColumna(int colInicial) {
+        this.columna = colInicial;
+    }
+
+    public void setFila(int filInicial) {
+        this.fila = filInicial;
+    }
 }

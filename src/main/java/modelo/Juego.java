@@ -52,7 +52,7 @@ public class Juego {
     }
 
     public boolean moverBloque(Coordenada origen, Coordenada destino) {
-        return niveles.get(nivelActual).getGrilla().moverBloque(origen, destino);
+        return niveles.get(nivelActual).getGrilla().moverBloque(getNivelActual(), origen, destino);
     }
 
 }

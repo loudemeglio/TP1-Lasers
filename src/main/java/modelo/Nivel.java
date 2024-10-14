@@ -10,6 +10,7 @@ public class Nivel {
     private int numeroNivel;
     private List<LaserTrayecto> trayectosLaser;
     private boolean hayInteraccion;
+    private boolean completado;
 
 
     public Nivel(int numeroNivel, int filas, int columnas) {
@@ -18,6 +19,7 @@ public class Nivel {
         this.lasers = new ArrayList<>();
         this.objetivos = new ArrayList<>();
         this.trayectosLaser = new ArrayList<>();
+        this.completado = false;
     }
 
     public List<LaserTrayecto> getTrayectosLaser() {
@@ -25,8 +27,8 @@ public class Nivel {
     }
 
     public void apuntarLaser(Laser laser) {
-        Coordenada inicio = new Coordenada(laser.getColumna(), laser.getFila());
-        Coordenada posicion = new Coordenada(laser.getColumna(), laser.getFila());
+        Coordenada inicio = new Coordenada(laser.getColInicial(), laser.getFilInicial());
+        Coordenada posicion = new Coordenada(laser.getColInicial(), laser.getFilInicial());
         Coordenada fin = null;
         Boolean posicionEnRango = true;
         Coordenada posInicial = new Coordenada(laser.getColInicial(), laser.getFilInicial());
@@ -156,6 +158,7 @@ public class Nivel {
     }
 
     private void finalizarLaser(Coordenada fin, Coordenada inicio, Coordenada coord) {
+        verificarObjetivoAlcanzado(fin);
         if (fin == null) {
             fin = coord; // El láser salió de la grilla sin obstáculos
         }
@@ -207,11 +210,13 @@ public class Nivel {
     }
 
     public boolean verificarNivelCompletado() {
+
         for (Objetivo objetivo : objetivos) {
             if (!objetivo.isAlcanzado()) {
                 return false; // Si hay al menos un objetivo no alcanzado, el nivel no está completado
             }
         }
+        completado = true;
         return true; // Todos los objetivos han sido alcanzados
     }
 
