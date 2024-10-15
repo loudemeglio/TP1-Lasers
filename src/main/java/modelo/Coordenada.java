@@ -26,11 +26,6 @@ public class Coordenada {
         this.fila = fila;
     }
 
-    @Override
-    public String toString() {
-        return "Coordenada{" + "columna=" + columna + ", fila=" + fila + '}';
-    }
-
 }
 
 

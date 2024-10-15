@@ -49,8 +49,6 @@ public class Laser {
 
     // SE MUEVE DEPENDIENDO LA DIRECCION QUE TOMA EL LASER
     public void mover() {
-        System.out.println("LASER nueva direccion: "+ this.direccion);
-        System.out.println("Posición inicial del láser: (" + this.getColumna() + ", " + this.getFila() + ")");
         switch (this.direccion) {
             case SE:
                 this.columna += 1;
@@ -85,17 +83,10 @@ public class Laser {
             if (bloque != null && !(bloque instanceof Piso) ) {
                 // Interactuar con el bloque (reflejar, absorber, etc.)
                 bloque.interactuarConLaser(this);
-                System.out.println("El láser ha interactuado con un bloque en (" + columnaEntera + "," + filaEntera + "), DE TIPO : "
-                + bloque);
                 return true;
             }
         }
         return false;
-    }
-
-
-    public String obtenerPosicion() {
-        return String.format("Posición del láser: (%d, %d)", columna, fila);
     }
 
     public boolean estaActivo() {

@@ -136,7 +136,6 @@ public class UI extends Application {
                 for (Laser emisor : emisores) {
                     Circle circuloEmisor = new Circle(5, Color.RED); // Círculo para el emisor (radio 10)
                     grid.add(circuloEmisor, emisor.getColInicial(), emisor.getFilInicial());
-                    System.out.println("COL "+ emisor.getColInicial() + " FIL " + emisor.getFilInicial());
                     circuloEmisor.setTranslateY(-4);
                     circuloEmisor.setTranslateX(-5);
                     GridPane.setHalignment(circuloEmisor, javafx.geometry.HPos.CENTER);

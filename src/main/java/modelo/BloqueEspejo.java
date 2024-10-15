@@ -6,15 +6,10 @@ public class BloqueEspejo implements Bloque {
     @Override
     public void interactuarConLaser(Laser laser) {
         Direccion direccionActual = laser.getDireccion();
-        System.out.println("direccion iniciallll : " + laser.getDireccion());
         LadoImpacto ladoImpacto = determinarLadoImpacto(laser);
 
         Direccion nuevaDireccion =  cambiarDireccion(direccionActual, ladoImpacto);
         laser.setDireccion(nuevaDireccion);
-        System.out.println("NUEVA REDIRECCION: " + nuevaDireccion);
-
-        System.out.println("El laser ha sido reflejado a. "+ laser.getDireccion());
-
     }
 
     public String getSimbolo() {
@@ -29,8 +24,6 @@ public class BloqueEspejo implements Bloque {
     public LadoImpacto determinarLadoImpacto(Laser laser) {
         int fila = laser.getFila();
         int col = laser.getColumna();
-        System.out.println("LA COLUMNA ES " + col + " y la FILAAAAAAAAA ESSSSSSSSS "+ fila );
-
         // Verificar si la fila es impar y la columna es par (impacto lateral)
         if (fila % 2 != 0 && col % 2 == 0) {
             return LadoImpacto.LATERAL;

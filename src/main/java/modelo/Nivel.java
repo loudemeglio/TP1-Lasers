@@ -30,21 +30,18 @@ public class Nivel {
         Coordenada fin = null;
         Boolean posicionEnRango = true;
         Coordenada posInicial = new Coordenada(laser.getColInicial(), laser.getFilInicial());
-        System.out.println("Apuntando láser desde: " + inicio.getColumna() + "," + inicio.getFila());
 
         // Realizar un primer movimiento antes de cualquier interacción
         laser.mover();
         posicion = new Coordenada(laser.getColumna(), laser.getFila());
 
         while (grilla.estaDentroDeLimites(posicion) && !verificarNivelCompletado()) {
-            System.out.println("Posición actual del láser: " + posicion.getColumna() + "," + posicion.getFila());
 
             Celda celda = grilla.getCelda(posicion.getFila(), posicion.getColumna());
             verificarObjetivoAlcanzado(posicion);
 
             if (celda != null && celda.tieneBloque()) {
                 Bloque bloque = celda.getTipoBloque();
-                System.out.println("el bloque en esta celda: " + bloque);
                 if (bloque instanceof Piso) {
 
                     if (!trayectosLaser.isEmpty()) {
@@ -76,14 +73,12 @@ public class Nivel {
             }
 
             if (!laser.estaActivo()) {
-                System.out.println("El laser ha impactado con un bloque opaco");
                 break;
             }
 
             // Mover el láser después de verificar la celda
             laser.mover();
             posicion = new Coordenada(laser.getColumna(), laser.getFila());
-            System.out.println("Moviendo a: " + posicion.getColumna() + "," + posicion.getFila());
         }
 
         fin = new Coordenada(laser.getColumna(), laser.getFila());
@@ -95,17 +90,14 @@ public class Nivel {
         for (Objetivo objetivo : objetivos) {
             if (objetivo.getFila() == coord.getFila() && objetivo.getColumna() == coord.getColumna() && !objetivo.isAlcanzado()) {
                 objetivo.setAlcanzado(true);
-                System.out.println("¡Objetivo alcanzado en: " + coord.getColumna() + "," + coord.getFila() + "!");
             }
         }
     }
     private void manejarBloquePiso(Laser laser, Coordenada coord) {
         LadoImpacto ladoImpacto = laser.verificarDireccionLaser(coord);
         if (ladoImpacto == LadoImpacto.LATERAL) {
-            System.out.println("Impacta en el LATERAL");
             interactuarBloqueLateral(coord, laser);
         } else if (ladoImpacto == LadoImpacto.SUPERIOR_INFERIOR) {
-            System.out.println("Impacta en el SUP-INF");
             interactuarBloqueSuperiorInferior(coord, laser);
         } else {
             laser.mover();
@@ -140,8 +132,6 @@ public class Nivel {
         Celda celdaAdyacente = grilla.getCelda(adyacente.getFila(), adyacente.getColumna());
         if (celdaAdyacente != null && celdaAdyacente.tieneBloque()) {
             Bloque bloqueAdyacente = celdaAdyacente.getTipoBloque();
-            System.out.println("Interacción con bloque en: " + adyacente.getColumna() + "," + adyacente.getFila());
-            System.out.println("Interactua cn el bloque: " + bloqueAdyacente);
             bloqueAdyacente.interactuarConLaser(laser);
             hayInteraccion = true;
             return true;
@@ -152,7 +142,6 @@ public class Nivel {
 
     private void bloquearInteraccion(Bloque bloque, Coordenada coord, Laser laser) {
         bloque.interactuarConLaser(laser);
-        System.out.println("Bloque encontrado en: " + coord.getColumna() + "," + coord.getFila());
     }
 
     private void finalizarLaser(Coordenada fin, Coordenada inicio, Coordenada coord) {
@@ -160,10 +149,6 @@ public class Nivel {
             fin = coord; // El láser salió de la grilla sin obstáculos
         }
 
-        System.out.println(fin != null
-                ? "El láser terminó en la coordenada: " + fin.getColumna() + "," + fin.getFila()
-                : "El láser salió de la grilla sin encontrar bloque."
-        );
 
         // Agrega el trayecto del láser a la lista de trayecto
         LaserTrayecto trayecto = new LaserTrayecto(inicio, fin);
@@ -171,9 +156,7 @@ public class Nivel {
 
         // Verificar si todos los objetivos han sido alcanzados
         if (verificarNivelCompletado()) {
-            System.out.println("¡Nivel completado! Todos los objetivos han sido alcanzados.");
         } else {
-            System.out.println("Todavía hay objetivos sin alcanzar.");
         }
     }
 
@@ -216,7 +199,6 @@ public class Nivel {
     }
 
     public void ejecutarNiveles(Nivel nivel) {
-        System.out.println("\u001B[31mEjecutando nivel: " + numeroNivel + "\u001B[0m");
         for (Laser laser : lasers) {
             apuntarLaser(laser); // Apunta el laser para cada emisor
         }
