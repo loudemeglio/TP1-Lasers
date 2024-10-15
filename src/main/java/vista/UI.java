@@ -204,14 +204,41 @@ public class UI extends Application {
 
 
     // Agregar emisores a la grilla
+    // Agregar emisores a la grilla
     private void agregarEmisores(List<Laser> emisores) {
         for (Laser emisor : emisores) {
             Circle circuloEmisor = new Circle(5, Color.RED);
-            grid.add(circuloEmisor, emisor.getColInicial(), emisor.getFilInicial());
+
+            // Obtener las coordenadas del emisor
+            int colEmisor = emisor.getColInicial();
+            int filEmisor = emisor.getFilInicial();
+
+            // Ajuste de coordenadas para posicionar emisores en los límites de las celdas
+            if (colEmisor % 2 == 0 && filEmisor % 2 == 0) {
+                // Emisor en la esquina superior izquierda de un bloque
+                grid.add(circuloEmisor, colEmisor / 2, filEmisor / 2);
+                GridPane.setHalignment(circuloEmisor, HPos.LEFT);
+                GridPane.setValignment(circuloEmisor, VPos.TOP);
+            } else if (colEmisor % 2 == 1 && filEmisor % 2 == 0) {
+                // Emisor en el borde superior (centrado horizontalmente)
+                grid.add(circuloEmisor, colEmisor / 2, filEmisor / 2);
+                GridPane.setHalignment(circuloEmisor, HPos.CENTER);
+                GridPane.setValignment(circuloEmisor, VPos.TOP);
+            } else if (colEmisor % 2 == 0 && filEmisor % 2 == 1) {
+                // Emisor en el borde izquierdo (centrado verticalmente)
+                grid.add(circuloEmisor, colEmisor / 2, filEmisor / 2);
+                GridPane.setHalignment(circuloEmisor, HPos.LEFT);
+                GridPane.setValignment(circuloEmisor, VPos.CENTER);
+            } else {
+                // Emisor en el centro de la celda
+                grid.add(circuloEmisor, colEmisor / 2, filEmisor / 2);
+                GridPane.setHalignment(circuloEmisor, HPos.CENTER);
+                GridPane.setValignment(circuloEmisor, VPos.CENTER);
+            }
+
+            // Ajuste de traslación si es necesario
             circuloEmisor.setTranslateY(-4);
             circuloEmisor.setTranslateX(-5);
-            GridPane.setHalignment(circuloEmisor, HPos.CENTER);
-            GridPane.setValignment(circuloEmisor, VPos.CENTER);
         }
     }
 
@@ -219,9 +246,6 @@ public class UI extends Application {
     private void agregarObjetivos(List<Objetivo> objetivos) {
         for (Objetivo objetivo : objetivos) {
             Circle circuloObjetivo = new Circle(5);
-
-            int col = objetivo.getColumna() / 2; // Divide por 2 para adaptarse a la grilla gráfica
-            int fila = objetivo.getFila() / 2;
 
             if (objetivo.isAlcanzado()) {
                 circuloObjetivo.setFill(Color.RED);
@@ -231,11 +255,36 @@ public class UI extends Application {
                 circuloObjetivo.setStrokeWidth(2);
             }
 
-            grid.add(circuloObjetivo, col, fila);
+            // Obtener las coordenadas del objetivo
+            int colObjetivo = objetivo.getColumna();
+            int filObjetivo = objetivo.getFila();
+
+            // Ajuste de coordenadas para posicionar objetivos en los límites de las celdas
+            if (colObjetivo % 2 == 0 && filObjetivo % 2 == 0) {
+                // Objetivo en la esquina superior izquierda de un bloque
+                grid.add(circuloObjetivo, colObjetivo / 2, filObjetivo / 2);
+                GridPane.setHalignment(circuloObjetivo, HPos.LEFT);
+                GridPane.setValignment(circuloObjetivo, VPos.TOP);
+            } else if (colObjetivo % 2 == 1 && filObjetivo % 2 == 0) {
+                // Objetivo en el borde superior (centrado horizontalmente)
+                grid.add(circuloObjetivo, colObjetivo / 2, filObjetivo / 2);
+                GridPane.setHalignment(circuloObjetivo, HPos.CENTER);
+                GridPane.setValignment(circuloObjetivo, VPos.TOP);
+            } else if (colObjetivo % 2 == 0 && filObjetivo % 2 == 1) {
+                // Objetivo en el borde izquierdo (centrado verticalmente)
+                grid.add(circuloObjetivo, colObjetivo / 2, filObjetivo / 2);
+                GridPane.setHalignment(circuloObjetivo, HPos.LEFT);
+                GridPane.setValignment(circuloObjetivo, VPos.CENTER);
+            } else {
+                // Objetivo en el centro de la celda
+                grid.add(circuloObjetivo, colObjetivo / 2, filObjetivo / 2);
+                GridPane.setHalignment(circuloObjetivo, HPos.CENTER);
+                GridPane.setValignment(circuloObjetivo, VPos.CENTER);
+            }
+
+            // Ajuste de traslación si es necesario
             circuloObjetivo.setTranslateY(-5);
             circuloObjetivo.setTranslateX(-5);
-            GridPane.setHalignment(circuloObjetivo, HPos.CENTER);
-            GridPane.setValignment(circuloObjetivo, VPos.CENTER);
         }
     }
 
