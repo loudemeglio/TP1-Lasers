@@ -226,4 +226,5 @@ public class Nivel {
             apuntarLaser(laser); // Apunta el laser para cada emisor
         }
     }
+
 }

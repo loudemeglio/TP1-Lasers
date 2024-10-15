@@ -6,6 +6,7 @@ import java.util.List;
 public class Juego {
     private List<Nivel> niveles;
     private int nivelActual;
+    private Grilla grillaOriginal;
 
 
     public Juego(int totalNiveles) {
@@ -15,9 +16,10 @@ public class Juego {
             nivel.ejecutarNiveles(nivel);
             // esto no tendria que estar aca me parece pq es lo que inicializa y llama a apuntar
         }
+        this.grillaOriginal = niveles.get(nivelActual).getGrilla();
     }
 
-    private List<Nivel> cargarNiveles(int totalNiveles) {
+    public List<Nivel> cargarNiveles(int totalNiveles) {
         List<Nivel> niveles = new ArrayList<>();
         for (int i = 1; i <= totalNiveles; i++) {
             Nivel nivel = CargarNiveles.cargarNivelDeArchivo(i);
@@ -29,6 +31,7 @@ public class Juego {
         }
         return niveles;
     }
+
 
     public Nivel getNivelActual() {
         return niveles.get(nivelActual);

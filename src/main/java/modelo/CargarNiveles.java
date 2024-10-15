@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 public class CargarNiveles {
 
     private static final Map<String, Supplier<Bloque>> registroBloques = new HashMap<>();
+    private static Grilla grillaOriginal; // Variable para almacenar la grilla original
 
     static {
         registroBloques.put("R", BloqueEspejo::new);
@@ -53,6 +54,8 @@ public class CargarNiveles {
                     }
 
                     Bloque bloque = crearBloqueDesdeSimbolo(simbolo);
+                    Celda celda = grilla.getCelda(i, j);
+                    celda.setBloqueOriginal(bloque);
                     grilla.setCelda(i, j, bloque);
                 }
             }
@@ -81,6 +84,27 @@ public class CargarNiveles {
 
 
     }
+
+    public static void obtenerGrillaOriginal(Nivel nivel) {
+        Grilla grillaDuplicada = nivel.getGrilla();
+        int filasOriginales = grillaDuplicada.getFilas();
+        int columnasOriginales = grillaDuplicada.getColumnas();
+
+        for (int i = 0; i < filasOriginales; i++) {
+            for (int j = 0; j < columnasOriginales; j++) {
+                // Accede a la celda correspondiente de la grilla duplicada
+                Celda celdaDuplicada = grillaDuplicada.getCelda(i, j ); // Accede a la celda correspondiente
+                Bloque bloqueOriginal = celdaDuplicada.getBloqueOriginal(); // Obtener el bloque original
+
+                // Sobrescribir el bloque en la celda correspondiente de la grilla duplicada
+                celdaDuplicada.setTipoBloque(bloqueOriginal);
+            }
+        }
+    }
+
+
+
+
 
     private static Bloque crearBloqueDesdeSimbolo(String simbolo) {
         // Buscar el constructor del bloque asociado al símbolo

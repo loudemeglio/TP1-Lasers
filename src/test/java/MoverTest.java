@@ -159,6 +159,22 @@ public class MoverTest {
             System.out.println("Nivel no completado aun :( ");
         }
 
+        juego.reininciarJuego();
+
+
+        CargarNiveles.obtenerGrillaOriginal(nivel);
+        for (int fila = 0; fila < grilla.getFilas(); fila++) {
+            for (int col = 0; col < grilla.getColumnas(); col++) {
+                Bloque bloque = grilla.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println();
+        }
+
 
 
     }

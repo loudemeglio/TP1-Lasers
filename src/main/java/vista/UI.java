@@ -32,6 +32,8 @@ public class UI extends Application {
     private Coordenada bloqueOrigen;
     private Coordenada bloqueDestino;
     private boolean origenSeleccionado = false;
+    private boolean nivelCompleto = false; // Variable para controlar si el nivel está completo
+    private boolean reiniciar;
 
 
     @Override
@@ -84,11 +86,13 @@ public class UI extends Application {
         return botones;
     }
 
+
     // Función principal que organiza la construcción de la grilla
     private void construirGrilla() {
         grid.getChildren().clear();
         laserLayer.getChildren().clear();
         rectangulos.clear();
+
 
         Nivel nivel = juego.getNivelActual();
         Grilla grilla = nivel.getGrilla();
@@ -101,10 +105,19 @@ public class UI extends Application {
         agregarObjetivos(objetivos);
         dibujarTrayectosLaser(trayectosLaser);
 
-        if (nivel.verificarNivelCompletado()) {
+        nivelCompleto = nivel.verificarNivelCompletado();
+        if (nivelCompleto) {
             cambiarFondoGrillaColorClaro();
+            deshabilitarInteracciones(); // Deshabilita la interacción
+
         } else {
             resetearFondoGrilla();
+        }
+    }
+
+    private void deshabilitarInteracciones() {
+        for (Node node : grid.getChildren()) {
+            node.setDisable(true); // Deshabilita todos los nodos en la grilla
         }
     }
 
