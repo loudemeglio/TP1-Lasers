@@ -79,7 +79,6 @@ public class Laser {
     public boolean verificarColision(Grilla grilla) {
         int columnaEntera = this.columna;
         int filaEntera = this.fila;
-
         // Si el láser está dentro de la grilla, verificar la celda
         if (!estaFueraDeGrilla(grilla)) {
             Celda celda = grilla.getCelda(filaEntera, columnaEntera);
@@ -106,6 +105,10 @@ public class Laser {
 
     public void detener() {
         this.activo = false;
+    }
+
+    public void activar() {
+        this.activo = true;
     }
 
     public void moverColumnaPositiva() {
