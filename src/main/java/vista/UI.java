@@ -100,6 +100,22 @@ public class UI extends Application {
         agregarEmisores(emisores);
         agregarObjetivos(objetivos);
         dibujarTrayectosLaser(trayectosLaser);
+
+        if (nivel.verificarNivelCompletado()) {
+            cambiarFondoGrillaColorClaro();
+        } else {
+            resetearFondoGrilla();
+        }
+    }
+
+    private void cambiarFondoGrillaColorClaro() {
+        // Cambiar el fondo de la grilla a un verde claro
+        grid.setStyle("-fx-background-color: lightgreen;");
+    }
+
+    private void resetearFondoGrilla() {
+        // Resetear el fondo de la grilla a su color original
+        grid.setStyle("-fx-background-color: transparent;"); // o el color original que tenga
     }
 
     private List<Bloque> obtenerBloquesDesdeGrilla(Grilla grilla) {
@@ -108,18 +124,12 @@ public class UI extends Application {
         // Recorre la grilla completa
         for (int fila = 0; fila < grilla.getFilas(); fila +=2) {
             for (int col = 0; col < grilla.getColumnas(); col += 2) {
-                // Obtener la celda en la posición (fila, col)
                 Celda celda = grilla.getCelda(fila, col);
-
-                // Si la celda es null, se agrega un bloque nulo
                 Bloque bloque = (celda != null) ? celda.getTipoBloque() : null;
-
                 // Agregar el bloque (o null) a la lista
                 bloques.add(bloque);
-
             }
         }
-
         return bloques;
     }
 
@@ -153,15 +163,12 @@ public class UI extends Application {
         }
         System.out.println("LA lista de rectangulos tiene: " + rectangulos.size());
 
-        List<Bloque> b = obtenerBloquesDesdeGrilla(grilla);
-        for (Bloque bl : b) {
-            System.out.println("TIPO : " + bl);
-        }
-
         for (Rectangle r : rectangulos) {
             r.setOnMouseClicked(event -> {
                 Integer posX = GridPane.getColumnIndex(r);  // Obtener columna
+                System.out.println("COL index " + posX);
                 Integer posY = GridPane.getRowIndex(r);     // Obtener fila
+                System.out.println("FIL index " + posY);
 
                 if (posX == null || posY == null) {
                     // En caso de que las coordenadas no estén asignadas
@@ -213,6 +220,9 @@ public class UI extends Application {
         for (Objetivo objetivo : objetivos) {
             Circle circuloObjetivo = new Circle(5);
 
+            int col = objetivo.getColumna() / 2; // Divide por 2 para adaptarse a la grilla gráfica
+            int fila = objetivo.getFila() / 2;
+
             if (objetivo.isAlcanzado()) {
                 circuloObjetivo.setFill(Color.RED);
             } else {
@@ -221,7 +231,7 @@ public class UI extends Application {
                 circuloObjetivo.setStrokeWidth(2);
             }
 
-            grid.add(circuloObjetivo, objetivo.getColumna(), objetivo.getFila());
+            grid.add(circuloObjetivo, col, fila);
             circuloObjetivo.setTranslateY(-5);
             circuloObjetivo.setTranslateX(-5);
             GridPane.setHalignment(circuloObjetivo, HPos.CENTER);

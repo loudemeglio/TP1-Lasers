@@ -22,7 +22,7 @@ public class BloqueCristal implements Bloque {
 
     @Override
     public boolean esMovil() {
-        return false;
+        return true;
     }
 
     private void moverEnLineaRecta(Laser laser, Direccion direccion) {

@@ -60,7 +60,7 @@ public class Grilla {
         List<Bloque> bloquesOrigen= new ArrayList<>();
         List<Bloque> bloquesDestino= new ArrayList<>();
 
-        if (esPosicionValida(origen) && esPosicionValida(destino)) {
+        //if (esPosicionValida(origen) && esPosicionValida(destino)) {
             Celda origen00 = getCelda(2*origen.getFila(), 2*origen.getColumna());
             bloquesOrigen.add(origen00.getTipoBloque());
             Celda destino00 = getCelda(2*destino.getFila(), 2*destino.getColumna());
@@ -110,8 +110,8 @@ public class Grilla {
 
             reiniciarLaser(n);
             return true;
-        }
-        return false; // Movimiento fallido
+        //}
+        //return false; // Movimiento fallido
     }
 
 
