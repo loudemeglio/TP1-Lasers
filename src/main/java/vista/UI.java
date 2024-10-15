@@ -127,7 +127,6 @@ public class UI extends Application {
     }
 
     private void resetearFondoGrilla() {
-        // Resetear el fondo de la grilla a su color original
         grid.setStyle("-fx-background-color: transparent;"); // o el color original que tenga
     }
 
@@ -185,7 +184,6 @@ public class UI extends Application {
 
                 if (posX == null || posY == null) {
                     // En caso de que las coordenadas no estén asignadas
-                    System.out.println("No se pudieron obtener las coordenadas de la celda");
                     return;
                 }
 
@@ -193,13 +191,10 @@ public class UI extends Application {
                     // Selecciona el origen
                     bloqueOrigen = new Coordenada(posX, posY);
                     origenSeleccionado = true;
-                    System.out.println("Celda origen seleccionada: " + bloqueOrigen);
                 } else {
                     // Selecciona el destino
                     bloqueDestino = new Coordenada(posX, posY);
                     origenSeleccionado = false; // Resetea para la siguiente interacción
-
-                    System.out.println("Celda destino seleccionada: " + bloqueDestino);
 
                     // Lógica para mover el bloque de origen a destino
                     if (juego.moverBloque(bloqueOrigen, bloqueDestino)) {
