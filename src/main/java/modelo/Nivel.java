@@ -31,6 +31,7 @@ public class Nivel {
         Coordenada posicion = new Coordenada(laser.getColInicial(), laser.getFilInicial());
         Coordenada fin = null;
         Boolean posicionEnRango = true;
+        laser.activar();
         Coordenada posInicial = new Coordenada(laser.getColInicial(), laser.getFilInicial());
         System.out.println("Apuntando láser desde: " + inicio.getColumna() + "," + inicio.getFila());
 
