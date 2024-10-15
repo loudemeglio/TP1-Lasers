@@ -13,11 +13,7 @@ public class BloqueCristal implements Bloque {
 
         // Mover el láser dos posiciones en línea recta (constante)
         moverEnLineaRecta(laser, direccionOriginal);
-
-        System.out.println("El laser sigue en su direccion: " + laser.getDireccion());
-
         // Mover el láser en la nueva dirección diagonal
-
     }
 
     @Override

@@ -14,7 +14,6 @@ public class Juego {
         this.nivelActual = 0; // Comienza en el primer nivel
         for (Nivel nivel : niveles) {
             nivel.ejecutarNiveles(nivel);
-            // esto no tendria que estar aca me parece pq es lo que inicializa y llama a apuntar
         }
         this.grillaOriginal = niveles.get(nivelActual).getGrilla();
     }
