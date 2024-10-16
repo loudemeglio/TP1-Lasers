@@ -80,6 +80,9 @@ public class UI extends Application {
 
             botones[i].setOnAction(event -> {
                 juego.setNivelActual(nivelIndex);
+                reiniciar = true;
+                CargarNiveles.obtenerGrillaOriginal(juego.getNivelActual());
+                juego.getNivelActual().reiniciarTrayectoria();
                 construirGrilla();
             });
         }
@@ -95,6 +98,7 @@ public class UI extends Application {
 
 
         Nivel nivel = juego.getNivelActual();
+
         Grilla grilla = nivel.getGrilla();
         List<Laser> emisores = nivel.getLasers();
         List<Objetivo> objetivos = nivel.getObjetivos();

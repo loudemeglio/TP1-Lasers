@@ -43,10 +43,8 @@ public class MoverTest {
 
         nivel.apuntarLaser(laser);
         String expected = "Posición del láser: (8,0, 9,0)";
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
         Direccion d = Direccion.NE;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
 
         // Mueve los bloques
@@ -75,7 +73,7 @@ public class MoverTest {
         }
 
 
-        if(nivel.verificarNivelCompletado()) {
+        if (nivel.verificarNivelCompletado()) {
             System.out.println("COMPLETADO");
         } else {
             System.out.println("Nivel no completado aun :( ");
@@ -93,7 +91,6 @@ public class MoverTest {
 
         // Verifica la posición del láser
         String expected2 = "Posición del láser: (8,0, 9,0)"; // Ajusta esto según la nueva posición esperada
-        String actual2 = laser.obtenerPosicion();
         Direccion d2 = Direccion.NE; // Asegúrate de que esta dirección sea la correcta después del movimiento
         Direccion act2 = laser.getDireccion();
         assertEquals(d2, act2);
@@ -111,7 +108,7 @@ public class MoverTest {
             }
             System.out.println();
         }
-        if(nivel.verificarNivelCompletado()) {
+        if (nivel.verificarNivelCompletado()) {
             System.out.println("COMPLETADO");
         } else {
             System.out.println("Nivel no completado aun :( ");
@@ -132,7 +129,7 @@ public class MoverTest {
             }
             System.out.println();
         }
-        if(nivel.verificarNivelCompletado()) {
+        if (nivel.verificarNivelCompletado()) {
             System.out.println("COMPLETADO");
         } else {
             System.out.println("Nivel no completado aun :( ");
@@ -153,13 +150,13 @@ public class MoverTest {
             }
             System.out.println();
         }
-        if(nivel.verificarNivelCompletado()) {
+        if (nivel.verificarNivelCompletado()) {
             System.out.println("COMPLETADO");
         } else {
             System.out.println("Nivel no completado aun :( ");
         }
 
-        juego.reininciarJuego();
+        // juego.reininciarJuego();
 
 
         CargarNiveles.obtenerGrillaOriginal(nivel);
@@ -174,6 +171,39 @@ public class MoverTest {
             }
             System.out.println();
         }
+
+        Grilla gg  = nivel.getGrilla();
+        System.out.println();
+
+        for (int fila = 0; fila < gg.getFilas(); fila++) {
+            for (int col = 0; col < gg.getColumnas(); col++) {
+                Bloque bloque = gg.getCelda(fila, col).getTipoBloque();
+                if (bloque != null) {
+                    System.out.print(bloque.getClass().getSimpleName() + " ");
+                } else {
+                    System.out.print("Vacío ");
+                }
+            }
+            System.out.println();
+        }
+
+        List<LaserTrayecto> trayectosS = nivel.getTrayectosLaser();
+        System.out.println("Trayectoria del láser:");
+        for (LaserTrayecto trayecto : trayectosS) {
+            System.out.println("Desde (" + trayecto.getInicio().getColumna() + ", " + trayecto.getInicio().getFila() +
+                    ") hasta (" + trayecto.getFin().getColumna() + ", " + trayecto.getFin().getFila() + ")");
+        }
+        System.out.println();
+        System.out.println();
+        nivel.reiniciarTrayectoria();
+        List<LaserTrayecto> trayectos2 = nivel.getTrayectosLaser();
+        System.out.println("Trayectoria del láser:");
+        for (LaserTrayecto trayecto : trayectos2) {
+            System.out.println("Desde (" + trayecto.getInicio().getColumna() + ", " + trayecto.getInicio().getFila() +
+                    ") hasta (" + trayecto.getFin().getColumna() + ", " + trayecto.getFin().getFila() + ")");
+        }
+        System.out.println();
+
 
 
 

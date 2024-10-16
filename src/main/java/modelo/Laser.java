@@ -146,4 +146,10 @@ public class Laser {
     public void setFila(int filInicial) {
         this.fila = filInicial;
     }
+
+    public void reiniciar() {
+        this.direccion = this.direccionOriginal;
+        this.columna = this.colInicial;
+        this.fila = this.filInicial;
+    }
 }

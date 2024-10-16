@@ -48,7 +48,6 @@ public class ApuntarLaser {
         nivel.apuntarLaser(laser); // Mover el láser una vez
 
         // Obtener la posición después del movimiento
-        String posicion = laser.obtenerPosicion();
 
         List<LaserTrayecto> trayectos = nivel.getTrayectosLaser();
         System.out.println("Trayectoria del láser:");
@@ -59,10 +58,8 @@ public class ApuntarLaser {
 
         // Verificar que la posición sea la esperada
         String expected = "Posición del láser: (8,0, 9,0)";
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
         Direccion d = Direccion.NE;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
     }
 
@@ -91,15 +88,12 @@ public class ApuntarLaser {
         nivel.apuntarLaser(laser); // Mover el láser una vez
 
         // Obtener la posición después del movimiento
-        String posicion = laser.obtenerPosicion();
 
         // Verificar que la posición sea la esperada
         String expected = "Posición del láser: (8,0, 9,0)";
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
 
         Direccion d = Direccion.SE;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
     }
 
@@ -127,16 +121,9 @@ public class ApuntarLaser {
         // Mover el láser
         nivel.apuntarLaser(laser); // Mover el láser una vez
 
-        // Obtener la posición después del movimiento
-        String posicion = laser.obtenerPosicion();
-
-        // Verificar que la posición sea la esperada
-        String expected = "Posición del láser: (8,0, 9,0)";
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
 
         Direccion d = Direccion.SE;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
     }
     @Test
@@ -164,15 +151,9 @@ public class ApuntarLaser {
             nivel.apuntarLaser(laser); // Mover el láser una vez
 
             // Obtener la posición después del movimiento
-            String posicion = laser.obtenerPosicion();
-
-            // Verificar que la posición sea la esperada
-            String expected = "Posición del láser: (8,0, 9,0)";
-            String actual = laser.obtenerPosicion();
 
             Direccion d = Direccion.NW;
             Direccion act = laser.getDireccion();
-            System.out.println("Posición actual: " + actual); // Debugging
             assertEquals(d, act);
         }
 
@@ -200,15 +181,9 @@ public class ApuntarLaser {
         // Mover el láser
         nivel.apuntarLaser(laser); // Mover el láser una vez
 
-        // Obtener la posición después del movimiento
-        String posicion = laser.obtenerPosicion();
-
-        // Verificar que la posición sea la esperada
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
 
         Direccion d = Direccion.SW;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
     }
 
@@ -240,14 +215,9 @@ public class ApuntarLaser {
         nivel.apuntarLaser(laser2);
 
         // Obtener la posición después del movimiento
-        String posicion = laser.obtenerPosicion();
-
-        // Verificar que la posición sea la esperada
-        String actual = laser.obtenerPosicion(); // Método que obtiene la posición formateada
 
         Direccion d = Direccion.SE;
         Direccion act = laser.getDireccion();
-        System.out.println("Posición actual: " + actual); // Debugging
         assertEquals(d, act);
     }
 

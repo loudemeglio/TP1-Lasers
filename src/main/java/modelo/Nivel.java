@@ -210,4 +210,17 @@ public class Nivel {
         }
     }
 
+    public void reiniciarTrayectoria() {
+        trayectosLaser.clear();
+        // Reiniciar el estado de los objetivos
+        for (Objetivo objetivo : objetivos) {
+            objetivo.setAlcanzado(false);  // Marca los objetivos como no alcanzados
+        }
+
+        for (Laser l : lasers) {
+            l.reiniciar();
+            apuntarLaser(l);
+        }
+    }
+
 }
