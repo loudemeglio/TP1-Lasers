@@ -85,6 +85,7 @@ public class Nivel {
         }
 
         fin = new Coordenada(laser.getColumna(), laser.getFila());
+        verificarObjetivoENTrayectoria();
         finalizarLaser(fin, inicio, posicion);
     }
 
@@ -93,6 +94,26 @@ public class Nivel {
         for (Objetivo objetivo : objetivos) {
             if (objetivo.getFila() == coord.getFila() && objetivo.getColumna() == coord.getColumna() && !objetivo.isAlcanzado()) {
                 objetivo.setAlcanzado(true);
+            }
+        }
+    }
+
+    private void verificarObjetivoENTrayectoria() {
+        for (Objetivo objetivo : objetivos) {
+            boolean objetivoEnTrayectoria = false;
+
+            // Recorre cada trayecto de láser y verifica si el objetivo está en la trayectoria
+            for (LaserTrayecto trayecto : trayectosLaser) {
+                if ((trayecto.getInicio().getColumna() == objetivo.getColumna() && trayecto.getInicio().getFila() == objetivo.getFila())
+                        || (trayecto.getFin().getColumna() == objetivo.getColumna() && trayecto.getFin().getFila() == objetivo.getFila())) {
+                    objetivoEnTrayectoria = true;
+                    break; // Si el objetivo está en alguna trayectoria, sal del bucle
+                }
+            }
+
+            // Si el objetivo no está en ninguna trayectoria, se desmarca
+            if (!objetivoEnTrayectoria) {
+                objetivo.setAlcanzado(false);
             }
         }
     }

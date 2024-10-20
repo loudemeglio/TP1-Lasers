@@ -192,6 +192,10 @@ public class MoverTest {
         for (LaserTrayecto trayecto : trayectosS) {
             System.out.println("Desde (" + trayecto.getInicio().getColumna() + ", " + trayecto.getInicio().getFila() +
                     ") hasta (" + trayecto.getFin().getColumna() + ", " + trayecto.getFin().getFila() + ")");
+            System.out.println();
+            System.out.println("Inicio : " + trayecto.getInicio());
+            System.out.println("Objetivo : " + nivel.getObjetivos().get(0).getCoordenada());
+
         }
         System.out.println();
         System.out.println();
